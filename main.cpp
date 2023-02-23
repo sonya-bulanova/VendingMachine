@@ -1,22 +1,52 @@
-﻿#include <iostream>
-#include "Snack.h"
-#include "SnackSlot.h"
-#include "Machine.h"
+﻿#pragma once
+
+#include <iostream>
+#include "IntArray.h"
+
 int main()
 {
-    Snack* bounty = new Snack("Bounty");
-    Snack* snickers = new Snack("Snickers");
-    SnackSlot* slot = new SnackSlot(10); /*количество батончиков, которые помещаются в слот*/
-    slot->addSnack(bounty); //Добавляем батончик в слот
-    slot->addSnack(snickers);
-    int slotCount = 15;
-    Machine* machine = new Machine(slotCount); /*Количество слотов для снеков*/
-    machine->addSlot(slot); // Помещаем слот обратно в аппарат
+    try
+    {
+        // Declare an array with 10 elements
+        IntArray array(10);
 
-    std::cout << machine->getEmptySlotsCount(); // Должно выводить количество пустых слотов для снеков
-    
-    delete machine;
-    delete slot;
-    delete snickers;
-    delete bounty;
+        // Fill the array with numbers 1 through 10
+        for (int i{ 0 }; i < 10; ++i)
+            array[i] = i + 1;
+
+        // Resize the array to 8 elements
+        array.resize(8);
+
+        // Insert the number 20 before element with index 5
+        array.insertBefore(20, 5);
+
+        // Remove the element with index 3
+        array.remove(3);
+
+        // Add 30 and 40 to the end and beginning
+        array.insertAtEnd(30);
+        array.insertAtBeginning(40);
+
+        // A few more tests to ensure copy constructing / assigning arrays
+        // doesn't break things
+        {
+            IntArray b{ array };
+            b = array;
+            b = b;
+            array = array;
+        }
+
+        // Print out all the numbers
+        for (int i{ 0 }; i < array.getLength(); ++i)
+            std::cout << array[i] << ' ';
+    }
+    catch (const std::exception&)
+    {
+        std::cout << "Caught an exeption" << std::endl;
+    }
+
+    std::cout << '\n';
+
+    return 0;
+
 }
