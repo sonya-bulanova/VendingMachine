@@ -24,9 +24,6 @@ IntArray::IntArray(const IntArray& a)
 IntArray::~IntArray()
 {
     if (!m_data) {
-        throw "Trying to free empty memory!";
-    }
-    else {
         delete[] m_data;
     }
     // we don't need to set m_data to null or m_length to 0 here, since the object will be destroyed immediately after this function anyway
